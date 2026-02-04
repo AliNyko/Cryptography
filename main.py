@@ -18,6 +18,15 @@ class EncryptRequest(BaseModel):
     key: Optional[str] = None
     options: Optional[Dict] = {}
 
+class DecryptRequest(BaseModel):
+    category: str
+    algorithm: str
+    ciphertext: str
+    key: str
+    nonce: Optional[str] = None
+    tag: Optional[str] = None
+    iv: Optional[str] = None
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -62,6 +71,45 @@ async def encrypt_endpoint(data: EncryptRequest):
         else:
             raise ValueError(f"Unknown category: {data.category}")
             
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        print(f"Error: {e}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+@app.post("/api/decrypt")
+async def decrypt_endpoint(data: DecryptRequest):
+    try:
+        if data.category == "classic":
+            if data.algorithm == "Caesar":
+                try:
+                    shift = int(data.key)
+                except ValueError:
+                    raise ValueError("Shift must be an integer")
+                return {"plaintext": classic.caesar_decrypt(data.ciphertext, shift)}
+            elif data.algorithm == "Monoalphabetic":
+                return {"plaintext": classic.monoalphabetic_decrypt(data.ciphertext, data.key)}
+            elif data.algorithm == "Vernam":
+                return {"plaintext": classic.vernam_decrypt(data.ciphertext, data.key)}
+            else:
+                raise ValueError(f"Unknown classic algorithm: {data.algorithm}")
+
+        elif data.category == "modern":
+            if data.algorithm == "AES":
+                if not data.nonce or not data.tag:
+                    raise ValueError("Nonce and Tag are required for AES decryption")
+                return {"plaintext": modern.aes_decrypt(data.ciphertext, data.key, data.nonce, data.tag)}
+            elif data.algorithm == "3DES":
+                if not data.iv:
+                    raise ValueError("IV is required for 3DES decryption")
+                return {"plaintext": modern.des3_decrypt(data.ciphertext, data.key, data.iv)}
+            elif data.algorithm == "RC4":
+                return {"plaintext": modern.rc4_decrypt(data.ciphertext, data.key)}
+            else:
+                raise ValueError(f"Unknown modern algorithm: {data.algorithm}")
+        else:
+            raise ValueError(f"Unknown category: {data.category}")
+
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
