@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+pycryptodome
+jinja2
+python-multipart
