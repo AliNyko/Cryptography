@@ -11,11 +11,15 @@
         <h1>Symmetric Cryptography</h1>
         
         <div class="card">
-            <div class="form-group">
-                <label for="plaintext">Plaintext</label>
-                <textarea id="plaintext" rows="4" placeholder="Enter text to encrypt..."></textarea>
+            <!-- Mode Selection -->
+             <div class="form-group">
+                <label>Mode</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="mode" value="encrypt" checked> Encrypt</label>
+                    <label><input type="radio" name="mode" value="decrypt"> Decrypt</label>
+                </div>
             </div>
-            
+
             <div class="form-group">
                 <label>Category</label>
                 <div class="radio-group">
@@ -28,6 +32,11 @@
                 <label for="algorithm">Algorithm</label>
                 <select id="algorithm"></select>
             </div>
+
+            <div class="form-group">
+                <label id="input-label" for="input-text">Plaintext</label>
+                <textarea id="input-text" rows="4" placeholder="Enter text..."></textarea>
+            </div>
             
             <div class="form-group" id="key-section">
                 <label for="key">Key <span id="key-hint"></span></label>
@@ -38,24 +47,35 @@
                 <small id="key-desc"></small>
             </div>
             
-            <button id="btn-encrypt" class="primary-btn">Encrypt</button>
+            <!-- Extra fields for decryption (AES/3DES) -->
+            <div id="decrypt-fields" class="hidden">
+                 <div class="form-group hidden" id="group-nonce">
+                    <label>Nonce (Base64)</label>
+                    <input type="text" id="input-nonce">
+                </div>
+                <div class="form-group hidden" id="group-tag">
+                    <label>Tag (Base64)</label>
+                    <input type="text" id="input-tag">
+                </div>
+                <div class="form-group hidden" id="group-iv">
+                    <label>IV (Base64)</label>
+                    <input type="text" id="input-iv">
+                </div>
+            </div>
+
+            <button id="btn-action" class="primary-btn">Encrypt</button>
             <div id="error-msg" class="error hidden"></div>
         </div>
 
         <div class="card result hidden" id="result-card">
             <h2>Result</h2>
             
-            <div class="result-item">
-                <span class="label">Plaintext:</span>
-                <div class="value" id="res-plaintext"></div>
+            <div class="result-item" id="res-group-main">
+                <span class="label" id="res-label-main">Ciphertext (Base64):</span>
+                <div class="value code" id="res-main"></div>
             </div>
             
-            <div class="result-item">
-                <span class="label">Ciphertext (Base64):</span>
-                <div class="value code" id="res-ciphertext"></div>
-            </div>
-            
-            <div class="result-item">
+            <div class="result-item" id="res-group-key">
                 <span class="label">Key (Base64/Text):</span>
                 <div class="value code" id="res-key"></div>
             </div>
