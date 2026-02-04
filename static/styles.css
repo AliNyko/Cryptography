@@ -1,0 +1,19 @@
+body { font-family: sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+.container { max-width: 800px; margin: 0 auto; }
+.card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+h1, h2 { text-align: center; color: #2c3e50; }
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-weight: bold; }
+textarea, select, input[type="text"], input[type="number"] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+.radio-group label { display: inline-block; margin-right: 15px; font-weight: normal; cursor: pointer; }
+.input-group { display: flex; gap: 10px; }
+button { padding: 10px 20px; cursor: pointer; border: none; border-radius: 4px; background: #3498db; color: white; font-size: 16px; }
+button:hover { background: #2980b9; }
+.primary-btn { width: 100%; margin-top: 10px; background: #2ecc71; }
+.primary-btn:hover { background: #27ae60; }
+.hidden { display: none; }
+.error { color: #e74c3c; background: #fadbd8; padding: 10px; border-radius: 4px; margin-top: 10px; }
+.result-item { margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+.value { word-break: break-all; }
+.code { font-family: monospace; background: #f8f9fa; padding: 5px; border-radius: 3px; }
+small { color: #7f8c8d; }
