@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symmetric Cryptography Demo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Symmetric Cryptography</h1>
+        
+        <div class="card">
+            <div class="form-group">
+                <label for="plaintext">Plaintext</label>
+                <textarea id="plaintext" rows="4" placeholder="Enter text to encrypt..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Category</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="category" value="classic" checked> Classic</label>
+                    <label><input type="radio" name="category" value="modern"> Modern</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="algorithm">Algorithm</label>
+                <select id="algorithm"></select>
+            </div>
+            
+            <div class="form-group" id="key-section">
+                <label for="key">Key <span id="key-hint"></span></label>
+                <div class="input-group">
+                    <input type="text" id="key" placeholder="Key will be generated if empty">
+                    <button id="btn-gen-key" type="button">Generate Key</button>
+                </div>
+                <small id="key-desc"></small>
+            </div>
+            
+            <button id="btn-encrypt" class="primary-btn">Encrypt</button>
+            <div id="error-msg" class="error hidden"></div>
+        </div>
+
+        <div class="card result hidden" id="result-card">
+            <h2>Result</h2>
+            
+            <div class="result-item">
+                <span class="label">Plaintext:</span>
+                <div class="value" id="res-plaintext"></div>
+            </div>
+            
+            <div class="result-item">
+                <span class="label">Ciphertext (Base64):</span>
+                <div class="value code" id="res-ciphertext"></div>
+            </div>
+            
+            <div class="result-item">
+                <span class="label">Key (Base64/Text):</span>
+                <div class="value code" id="res-key"></div>
+            </div>
+            
+            <div id="meta-fields"></div>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>
